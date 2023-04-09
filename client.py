@@ -2,16 +2,23 @@ import requests
 import threading
 import time
 
+server_url = "http://localhost:5001"
+
 
 def send_io_request(content):
-    response = requests.post('http://localhost:5000/io',
-                             data={'content': content})
+    start_time = time.time()
+    response = requests.post(f'{server_url}/io', data={'content': content})
+    end_time = time.time()
     print(response.json())
+    print(f"Request time for IO request: {end_time - start_time} seconds")
 
 
 def send_calculation_request(n):
-    response = requests.get(f'http://localhost:5000/calculation?n={n}')
+    start_time = time.time()
+    response = requests.get(f'{server_url}/calculation?n={n}')
+    end_time = time.time()
     print(response.json())
+    print(f"Request time for calculation request: {end_time - start_time} seconds")
 
 
 def send_requests():
